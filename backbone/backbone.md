@@ -28,10 +28,6 @@ Backbone.js gives structure to web applications by providing **models** with key
 
     print(elliot.get("Name"));
 
-    //make global for subsequent slides
-    window.Person = Person;
-    window.elliot = elliot;
-
 ---
 ##Model Attributes
 
@@ -78,8 +74,141 @@ When you perform an attribute change on a backbone model it fires change events 
     elliot.set("Age", 2);
     elliot.set("Age", 3);
 
+---
+##Persistence
+
+- If you provide a model with a url then you can utilize several helper function to communicate with the backend
+- This is usually done in the model constructor
+
+. 
+
+    !javascript
+    var Person = Backbone.Model.extend({
+        url : "/api/kids"
+        defaults: {
+            Name: null,
+            Age: null
+        }
+    });
+
+---
+##Save
+
+- When using `model.save()` an ajax request is made to the specified url
+- If the model is `isNew()`, it was created on the client, then backbone will make a request to the url with a HTTP `POST`. For example `/api/kids`
+- If the model is `!isNew()`, it has been saved or was provided by the server, then a HTTP `PUT` will be used and the models `id` will be appended to the url. For example `/api/kids/1`
+- If a model does not have a url of its own, but is part of a collection the url of the collection will be used
+
+---
+#Destroy
+
+- backbone provides a `destroy()` method that works similiarly to save except that an HTTP `DELETE` is sent to the specified url
+- If the model `isNew()` then destroy will not make a request to the server
+- When a model is destroyed it fires a destroy event
+
+.
+
+    !javascript
+    var workItem = new WorkItem({
+        Name: "my work item"
+    });
+
+    workItem.on("destroy", function(model){
+        print('"' + model.get("Name") + 
+              '"\n' + " has been destroyed");
+    });
+
+    workItem.destroy();
 
 
-    
 
+---
+#Persistence Options
+Backbones persistence methods `save` and `destroy` accepts `success` and `error` callbacks 
+For example:
+
+    !javascript
+    var WorkItem = Backbone.Model.extend({
+        url: "api/workItems",
+        defaults: {
+            Name: null
+        }
+    });
+
+    var workItem = new WorkItem({
+        Name: "my work item"
+    });
+
+    workItem.save({
+        success: function(){
+            alert("saved");
+        },
+        error: function(){
+            alert("error");
+        }
+    });
+
+---
+#Collections
+- Backbone has a construct called `Collections` that is a group of models
+- Collections have methods such as `add`, `remove`, and `get`
+
+.
+
+    !javascript
+    var WorkItemCollection = Backbone.Collection.extend({
+        model: WorkItem
+    });
+
+    var workItems = new WorkItemCollection();
+    workItems.add(
+        new WorkItem({
+            Name: "workitem 1"
+        })
+    );
+
+    print("");
+    print("");
+    printJSON(workItems.models);
+
+---
+#Collection Add Event
+- Backbone collections have several events that are triggered including `add` and `remove`
+
+.
+
+    !javascript
+    var workItems = new WorkItemCollection();
+    workItems.on("add", function(model){
+        printJSON(model);
+    });
+
+    var workItem1 = new WorkItem({
+        Name: "workitem 1"
+    });
+    workItems.add(workItem1);
+
+    workItems.add(
+        new WorkItem({
+            Name: "workitem 2"
+        })
+    );
+
+    //For next slide
+    window.workItem1 = workItem1;
+    window.workItems = workItems;
+
+---
+#Collection Remove Event
+
+    !javascript
+    workItems.on("remove", function(model){
+        print("removed:");
+        printJSON(model);
+    });
+    workItems.remove(workItem1);
+
+
+---
+#Backbone Views
 

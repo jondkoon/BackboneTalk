@@ -7,6 +7,16 @@ $(function(){
         }
     });
 
+    var WorkItem = Backbone.Model.extend({
+        defaults: {
+            Name: null
+        }
+    });
+
+    var WorkItemCollection = Backbone.Collection.extend({
+        model: WorkItem
+    });
+
     var elliot = new Person({
         Name: "Elliot",
         Age: 10/12

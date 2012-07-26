@@ -91,7 +91,7 @@
             </aside>
             
             <aside class="page_number">
-              1/6
+              1/14
             </aside>
           </footer>
         </div>
@@ -116,7 +116,7 @@
             </aside>
             
             <aside class="page_number">
-              2/6
+              2/14
             </aside>
           </footer>
         </div>
@@ -143,10 +143,6 @@
 <span class="p">});</span>
 
 <span class="nx">print</span><span class="p">(</span><span class="nx">elliot</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;Name&quot;</span><span class="p">));</span>
-
-<span class="c1">//make global for subsequent slides</span>
-<span class="nb">window</span><span class="p">.</span><span class="nx">Person</span> <span class="o">=</span> <span class="nx">Person</span><span class="p">;</span>
-<span class="nb">window</span><span class="p">.</span><span class="nx">elliot</span> <span class="o">=</span> <span class="nx">elliot</span><span class="p">;</span>
 </pre></div>
 </section>
             
@@ -159,7 +155,7 @@
             </aside>
             
             <aside class="page_number">
-              3/6
+              3/14
             </aside>
           </footer>
         </div>
@@ -191,7 +187,7 @@
             </aside>
             
             <aside class="page_number">
-              4/6
+              4/14
             </aside>
           </footer>
         </div>
@@ -230,7 +226,7 @@
             </aside>
             
             <aside class="page_number">
-              5/6
+              5/14
             </aside>
           </footer>
         </div>
@@ -264,7 +260,312 @@
             </aside>
             
             <aside class="page_number">
-              6/6
+              6/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: backbone.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Persistence</h2></header>
+            
+            
+            <section><ul>
+<li>If you provide a model with a url then you can utilize several helper function to communicate with the backend</li>
+<li>This is usually done in the model constructor</li>
+</ul>
+<p>. </p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">Person</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+    <span class="nx">url</span> <span class="o">:</span> <span class="s2">&quot;/api/kids&quot;</span>
+    <span class="nx">defaults</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">Name</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="nx">Age</span><span class="o">:</span> <span class="kc">null</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+</section>
+            
+          </div>
+            
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="backbone.md">backbone.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              7/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: backbone.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Save</h2></header>
+            
+            
+            <section><ul>
+<li>When using <code>model.save()</code> an ajax request is made to the specified url</li>
+<li>If the model is <code>isNew()</code>, it was created on the client, then backbone will make a request to the url with a HTTP <code>POST</code>. For example <code>/api/kids</code></li>
+<li>If the model is <code>!isNew()</code>, it has been saved or was provided by the server, then a HTTP <code>PUT</code> will be used and the models <code>id</code> will be appended to the url. For example <code>/api/kids/1</code></li>
+<li>If a model does not have a url of its own, but is part of a collection the url of the collection will be used</li>
+</ul></section>
+            
+          </div>
+            
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="backbone.md">backbone.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              8/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: backbone.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>Destroy</h1></header>
+            
+            
+            <section><ul>
+<li>backbone provides a <code>destroy()</code> method that works similiarly to save except that an HTTP <code>DELETE</code> is sent to the specified url</li>
+<li>If the model <code>isNew()</code> then destroy will not make a request to the server</li>
+<li>When a model is destroyed it fires a destroy event</li>
+</ul>
+<p>.</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">workItem</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WorkItem</span><span class="p">({</span>
+    <span class="nx">Name</span><span class="o">:</span> <span class="s2">&quot;my work item&quot;</span>
+<span class="p">});</span>
+
+<span class="nx">workItem</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;destroy&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">model</span><span class="p">){</span>
+    <span class="nx">print</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span> <span class="o">+</span> <span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;Name&quot;</span><span class="p">)</span> <span class="o">+</span> 
+          <span class="s1">&#39;&quot;\n&#39;</span> <span class="o">+</span> <span class="s2">&quot; has been destroyed&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">workItem</span><span class="p">.</span><span class="nx">destroy</span><span class="p">();</span>
+</pre></div>
+</section>
+            
+          </div>
+            
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="backbone.md">backbone.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: backbone.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>Persistence Options</h1></header>
+            
+            
+            <section><p>Backbones persistence methods <code>save</code> and <code>destroy</code> accepts <code>success</code> and <code>error</code> callbacks 
+For example:</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">WorkItem</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+    <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;api/workItems&quot;</span><span class="p">,</span>
+    <span class="nx">defaults</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">Name</span><span class="o">:</span> <span class="kc">null</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">workItem</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WorkItem</span><span class="p">({</span>
+    <span class="nx">Name</span><span class="o">:</span> <span class="s2">&quot;my work item&quot;</span>
+<span class="p">});</span>
+
+<span class="nx">workItem</span><span class="p">.</span><span class="nx">save</span><span class="p">({</span>
+    <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;saved&quot;</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="nx">error</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+</section>
+            
+          </div>
+            
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="backbone.md">backbone.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: backbone.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>Collections</h1></header>
+            
+            
+            <section><ul>
+<li>Backbone has a construct called <code>Collections</code> that is a group of models</li>
+<li>Collections have methods such as <code>add</code>, <code>remove</code>, and <code>get</code></li>
+</ul>
+<p>.</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">WorkItemCollection</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+    <span class="nx">model</span><span class="o">:</span> <span class="nx">WorkItem</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">workItems</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WorkItemCollection</span><span class="p">();</span>
+<span class="nx">workItems</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span>
+    <span class="k">new</span> <span class="nx">WorkItem</span><span class="p">({</span>
+        <span class="nx">Name</span><span class="o">:</span> <span class="s2">&quot;workitem 1&quot;</span>
+    <span class="p">})</span>
+<span class="p">);</span>
+
+<span class="nx">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">);</span>
+<span class="nx">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">);</span>
+<span class="nx">printJSON</span><span class="p">(</span><span class="nx">workItems</span><span class="p">.</span><span class="nx">models</span><span class="p">);</span>
+</pre></div>
+</section>
+            
+          </div>
+            
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="backbone.md">backbone.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              11/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: backbone.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>Collection Add Event</h1></header>
+            
+            
+            <section><ul>
+<li>Backbone collections have several events that are triggered including <code>add</code> and <code>remove</code></li>
+</ul>
+<p>.</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">workItems</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WorkItemCollection</span><span class="p">();</span>
+<span class="nx">workItems</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">model</span><span class="p">){</span>
+    <span class="nx">printJSON</span><span class="p">(</span><span class="nx">model</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">workItem1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WorkItem</span><span class="p">({</span>
+    <span class="nx">Name</span><span class="o">:</span> <span class="s2">&quot;workitem 1&quot;</span>
+<span class="p">});</span>
+<span class="nx">workItems</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">workItem1</span><span class="p">);</span>
+
+<span class="nx">workItems</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span>
+    <span class="k">new</span> <span class="nx">WorkItem</span><span class="p">({</span>
+        <span class="nx">Name</span><span class="o">:</span> <span class="s2">&quot;workitem 2&quot;</span>
+    <span class="p">})</span>
+<span class="p">);</span>
+
+<span class="c1">//For next slide</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">workItem1</span> <span class="o">=</span> <span class="nx">workItem1</span><span class="p">;</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">workItems</span> <span class="o">=</span> <span class="nx">workItems</span><span class="p">;</span>
+</pre></div>
+</section>
+            
+          </div>
+            
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="backbone.md">backbone.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              12/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: backbone.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>Collection Remove Event</h1></header>
+            
+            
+            <section><div class="highlight"><pre><span class="nx">workItems</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;remove&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">model</span><span class="p">){</span>
+    <span class="nx">print</span><span class="p">(</span><span class="s2">&quot;removed:&quot;</span><span class="p">);</span>
+    <span class="nx">printJSON</span><span class="p">(</span><span class="nx">model</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="nx">workItems</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="nx">workItem1</span><span class="p">);</span>
+</pre></div>
+</section>
+            
+          </div>
+            
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="backbone.md">backbone.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              13/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: backbone.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Backbone Views</h1></header>
+            
+            
+          </div>
+            
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="backbone.md">backbone.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              14/14
             </aside>
           </footer>
         </div>
@@ -310,6 +611,52 @@
           <td><a href="#slide6">6</a></td>
         </tr>
         
+        <tr id="toc-row-7" class="sub">
+          <th><a href="#slide7">Persistence</a></th>
+          <td><a href="#slide7">7</a></td>
+        </tr>
+        
+        <tr id="toc-row-8" class="sub">
+          <th><a href="#slide8">Save</a></th>
+          <td><a href="#slide8">8</a></td>
+        </tr>
+        
+      
+      
+      <tr id="toc-row-9">
+        <th><a href="#slide9">Destroy</a></th>
+        <td><a href="#slide9">9</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-10">
+        <th><a href="#slide10">Persistence Options</a></th>
+        <td><a href="#slide10">10</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-11">
+        <th><a href="#slide11">Collections</a></th>
+        <td><a href="#slide11">11</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-12">
+        <th><a href="#slide12">Collection Add Event</a></th>
+        <td><a href="#slide12">12</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-13">
+        <th><a href="#slide13">Collection Remove Event</a></th>
+        <td><a href="#slide13">13</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-14">
+        <th><a href="#slide14">Backbone Views</a></th>
+        <td><a href="#slide14">14</a></td>
+      </tr>
       
       
     </table>
