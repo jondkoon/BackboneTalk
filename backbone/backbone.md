@@ -212,3 +212,29 @@ For example:
 ---
 #Backbone Views
 
+From the Backbone docs:
+
+
+> The general idea is to organize your interface into logical views, backed by models, each of which can be updated independently when the model changes, without having to redraw the page. Instead of digging into a JSON object, looking up an element in the DOM, and updating the HTML by hand, you can bind your view's render function to the model's "change" event — and now everywhere that model data is displayed in the UI, it is always immediately up to date.
+
+---
+#A backbone view example
+
+<ul class="work-items">
+    <li>work item1</ul>
+</ul>
+
+    !javascript
+    var WorkItemView = new Backbone.View.extend({
+        tagName: "li",
+        render: function(){
+            this.$el.html(this.model.get("Name"));
+        }
+    });
+    var workItem2 = new WorkItem({Name: "work item2"});
+
+    var workItemView = new WorkItemView({
+        model: workItem2
+    });
+    
+    $('.work-items').append(workItemView.render());

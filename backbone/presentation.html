@@ -91,7 +91,7 @@
             </aside>
             
             <aside class="page_number">
-              1/14
+              1/15
             </aside>
           </footer>
         </div>
@@ -116,7 +116,7 @@
             </aside>
             
             <aside class="page_number">
-              2/14
+              2/15
             </aside>
           </footer>
         </div>
@@ -155,7 +155,7 @@
             </aside>
             
             <aside class="page_number">
-              3/14
+              3/15
             </aside>
           </footer>
         </div>
@@ -187,7 +187,7 @@
             </aside>
             
             <aside class="page_number">
-              4/14
+              4/15
             </aside>
           </footer>
         </div>
@@ -226,7 +226,7 @@
             </aside>
             
             <aside class="page_number">
-              5/14
+              5/15
             </aside>
           </footer>
         </div>
@@ -260,7 +260,7 @@
             </aside>
             
             <aside class="page_number">
-              6/14
+              6/15
             </aside>
           </footer>
         </div>
@@ -298,7 +298,7 @@
             </aside>
             
             <aside class="page_number">
-              7/14
+              7/15
             </aside>
           </footer>
         </div>
@@ -328,7 +328,7 @@
             </aside>
             
             <aside class="page_number">
-              8/14
+              8/15
             </aside>
           </footer>
         </div>
@@ -370,7 +370,7 @@
             </aside>
             
             <aside class="page_number">
-              9/14
+              9/15
             </aside>
           </footer>
         </div>
@@ -417,7 +417,7 @@ For example:</p>
             </aside>
             
             <aside class="page_number">
-              10/14
+              10/15
             </aside>
           </footer>
         </div>
@@ -462,7 +462,7 @@ For example:</p>
             </aside>
             
             <aside class="page_number">
-              11/14
+              11/15
             </aside>
           </footer>
         </div>
@@ -511,7 +511,7 @@ For example:</p>
             </aside>
             
             <aside class="page_number">
-              12/14
+              12/15
             </aside>
           </footer>
         </div>
@@ -542,7 +542,7 @@ For example:</p>
             </aside>
             
             <aside class="page_number">
-              13/14
+              13/15
             </aside>
           </footer>
         </div>
@@ -556,6 +556,11 @@ For example:</p>
             <header><h1>Backbone Views</h1></header>
             
             
+            <section><p>From the Backbone docs:</p>
+<blockquote>
+<p>The general idea is to organize your interface into logical views, backed by models, each of which can be updated independently when the model changes, without having to redraw the page. Instead of digging into a JSON object, looking up an element in the DOM, and updating the HTML by hand, you can bind your view's render function to the model's "change" event — and now everywhere that model data is displayed in the UI, it is always immediately up to date.</p>
+</blockquote></section>
+            
           </div>
             
           <footer>
@@ -565,7 +570,50 @@ For example:</p>
             </aside>
             
             <aside class="page_number">
-              14/14
+              14/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: backbone.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>A backbone view example</h1></header>
+            
+            
+            <section><ul class="work-items">
+    <li>work item1</ul>
+</ul>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">WorkItemView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+    <span class="nx">tagName</span><span class="o">:</span> <span class="s2">&quot;li&quot;</span><span class="p">,</span>
+    <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;Name&quot;</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+<span class="kd">var</span> <span class="nx">workItem2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WorkItem</span><span class="p">({</span><span class="nx">Name</span><span class="o">:</span> <span class="s2">&quot;work item2&quot;</span><span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">workItemView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WorkItemView</span><span class="p">({</span>
+    <span class="nx">model</span><span class="o">:</span> <span class="nx">workItem2</span>
+<span class="p">});</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.work-items&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">workItemView</span><span class="p">.</span><span class="nx">render</span><span class="p">());</span>
+</pre></div>
+</section>
+            
+          </div>
+            
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="backbone.md">backbone.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              15/15
             </aside>
           </footer>
         </div>
@@ -656,6 +704,12 @@ For example:</p>
       <tr id="toc-row-14">
         <th><a href="#slide14">Backbone Views</a></th>
         <td><a href="#slide14">14</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-15">
+        <th><a href="#slide15">A backbone view example</a></th>
+        <td><a href="#slide15">15</a></td>
       </tr>
       
       
