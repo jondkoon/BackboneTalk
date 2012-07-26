@@ -9,6 +9,10 @@ $(function(){
         }
     };
 
+    window.printJSON = function(toPrint){
+        print(JSON.stringify(toPrint));
+    }
+
     $('.highlight').each(function(){
         var el = $(this);
         el.addClass('clearfix');
