@@ -1,4 +1,16 @@
 $(function(){
+
+    var Person = Backbone.Model.extend({
+        defaults: {
+            Name: null,
+            Age: null
+        }
+    });
+
+    var elliot = new Person({
+        Name: "Elliot",
+        Age: 10/12
+    });
     
     window.slides = {};
     slides.outputBox = null;

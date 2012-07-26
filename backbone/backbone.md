@@ -36,7 +36,7 @@ Backbone.js gives structure to web applications by providing **models** with key
 ##Model Attributes
 
 - In order to distinguish methods from attributes of the model backbone stores all attributes in the **attributes** property
-- The attributes property is what is JSONified and sent to the server when you do `model.save`
+- The attributes property is what is JSONified and sent to the server when you do `model.save()`
 
 .
 
@@ -66,7 +66,17 @@ It is not best practice to access or modify attributes of a model directly
 ---
 ##Model Events
 
-hello
+When you perform an attribute change on a backbone model it fires change events to notify interested parties of the change
+
+    !javascript
+
+    elliot.on("change:Age",function(model, age){
+        print("Happy Birthday!\n You are " + 
+               age + " years old\n");
+    });
+
+    elliot.set("Age", 2);
+    elliot.set("Age", 3);
 
 
 

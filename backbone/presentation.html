@@ -47,15 +47,15 @@
       
     
       
-      <script type="text/javascript" src="../slide-config/circus/js/script.js"></script>
-      
-    
-      
       <script type="text/javascript" src="underscore-min.js"></script>
       
     
       
       <script type="text/javascript" src="backbone-min.js"></script>
+      
+    
+      
+      <script type="text/javascript" src="../slide-config/circus/js/script.js"></script>
       
     
     <!-- /Javascripts -->
@@ -175,7 +175,7 @@
             
             <section><ul>
 <li>In order to distinguish methods from attributes of the model backbone stores all attributes in the <strong>attributes</strong> property</li>
-<li>The attributes property is what is JSONified and sent to the server when you do <code>model.save</code></li>
+<li>The attributes property is what is JSONified and sent to the server when you do <code>model.save()</code></li>
 </ul>
 <p>.</p>
 <div class="highlight"><pre><span class="nx">printJSON</span><span class="p">(</span><span class="nx">elliot</span><span class="p">.</span><span class="nx">attributes</span><span class="p">);</span>
@@ -238,13 +238,22 @@
       
       <!-- slide source: backbone.md -->
       <div class="slide-wrapper">
-        <div class="slide">
+        <div class="slide has_code">
           <div class="inner">
             
             <header><h2>Model Events</h2></header>
             
             
-            <section><p>hello</p></section>
+            <section><p>When you perform an attribute change on a backbone model it fires change events to notify interested parties of the change</p>
+<div class="highlight"><pre><span class="nx">elliot</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;change:Age&quot;</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">model</span><span class="p">,</span> <span class="nx">age</span><span class="p">){</span>
+    <span class="nx">print</span><span class="p">(</span><span class="s2">&quot;Happy Birthday!\n You are &quot;</span> <span class="o">+</span> 
+           <span class="nx">age</span> <span class="o">+</span> <span class="s2">&quot; years old\n&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">elliot</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="nx">elliot</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+</pre></div>
+</section>
             
           </div>
             
